@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .container { width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        .message { border-bottom: 1px solid #ddd; padding: 10px; }
+        img { max-width: 100px; margin-top: 5px; }
+        button { background-color: red; color: white; padding: 5px; border: none; cursor: pointer; }
+        a { display: block; margin-top: 20px; color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Panel - Messages</h2>
+        {% for msg in messages %}
+            <div class="message">
+                <p><b>{{ msg['name'] }}</b>: {{ msg['message']|safe }}</p>
+                {% if msg['image'] %}
+                    <img src="/{{ msg['image'] }}" alt="Uploaded Image"><br>
+                {% endif %}
+                <form method="post" action="/delete/{{ loop.index0 }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>
